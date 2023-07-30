@@ -6,10 +6,14 @@
   function onDelete() {
     dispatch("delete");
   }
+
+  function onEdit() {
+    dispatch("edit");
+  }
 </script>
 
 <div>
-  <button>Edit</button>
+  <button on:click={onEdit}>Edit</button>
   <button on:click={onDelete}>Delete</button>
 </div>
 
