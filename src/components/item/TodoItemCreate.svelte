@@ -1,6 +1,9 @@
 <script lang="ts">
+  import { createEventDispatcher } from "svelte";
   import type { Task } from "../../model";
   import { v4 as uuidv4 } from "uuid";
+
+  const dispatch = createEventDispatcher();
 
   export let items: Task[];
 
@@ -18,6 +21,7 @@
         completed: false,
       },
     ];
+    dispatch("create");
     title = "";
   }
 </script>

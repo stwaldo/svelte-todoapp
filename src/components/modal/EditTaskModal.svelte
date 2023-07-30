@@ -1,7 +1,7 @@
 <script lang="ts">
   import { createEventDispatcher } from "svelte";
   import type { Task } from "../../model";
-  import Modal from "../util/modal/modal.svelte";
+  import Modal from "../util/modal/Modal.svelte";
   const dispatch = createEventDispatcher();
 
   function close() {

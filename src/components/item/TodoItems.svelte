@@ -9,6 +9,7 @@
 
   function onDelete(task: Task) {
     items = items.filter((t: Task) => t.id != task.id);
+    dispatch("delete");
   }
 </script>
 
@@ -16,6 +17,7 @@
   {#each items as item (item.id)}
     <TodoItem
       bind:data={item}
+      on:titleChange
       on:edit={() => dispatch("edit", item)}
       on:delete={() => onDelete(item)}
     />
