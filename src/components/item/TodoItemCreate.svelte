@@ -10,7 +10,7 @@
   let title: string = "";
 
   function onKeyDown(e: KeyboardEvent) {
-    if (e.key !== "Enter") return;
+    if (e.key != "Enter") return;
     if (title === "") return;
 
     items = [

@@ -18,6 +18,7 @@
     <TodoItem
       bind:data={item}
       on:titleChange
+      on:completedChange
       on:edit={() => dispatch("edit", item)}
       on:delete={() => onDelete(item)}
     />
@@ -27,7 +28,7 @@
 <style>
   div {
     display: flex;
-    gap: 5px;
+    gap: 15px;
     flex-direction: column;
   }
 </style>

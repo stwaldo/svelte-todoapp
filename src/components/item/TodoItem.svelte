@@ -5,21 +5,26 @@
 
   const dispatch = createEventDispatcher();
 
+  export let data: Task;
+
   function onTitleBlur() {
     dispatch("titleChange");
   }
-
-  export let data: Task;
 </script>
 
-<div>
+<div class="rounded bg-white drop-shadow-md">
   <span
     contenteditable="true"
     spellcheck="false"
     on:blur={onTitleBlur}
     bind:textContent={data.title}>{data.title}</span
   >
-  <TodoItemActions on:delete on:edit />
+  <TodoItemActions
+    on:delete
+    on:edit
+    on:completedChange
+    bind:completed={data.completed}
+  />
 </div>
 
 <style>

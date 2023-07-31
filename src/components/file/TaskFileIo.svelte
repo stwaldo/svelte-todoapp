@@ -15,7 +15,7 @@
   }
 
   function onFilesChanged(files: FileList) {
-    if (files === null) return;
+    if (files == null) return;
 
     const reader = new FileReader();
     reader.onload = (e) => {
@@ -37,11 +37,13 @@
   <input type="text" placeholder="File name" bind:value={fileName} /><button
     on:click={save}>Save file</button
   >
-  <br />
   <input type="file" bind:files={importFiles} />
 </div>
 
 <style>
+  input[type="file"] {
+    display: block;
+  }
   div {
     margin-top: 20px;
   }

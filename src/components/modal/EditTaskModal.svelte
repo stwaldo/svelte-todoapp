@@ -4,16 +4,17 @@
   import Modal from "../util/modal/Modal.svelte";
   const dispatch = createEventDispatcher();
 
+  export let visible = false;
+  export let data: Task | null;
+
   function close() {
     visible = false;
   }
 
   function save() {
     dispatch("save", data);
+    close();
   }
-
-  export let visible = false;
-  export let data: Task | null;
 </script>
 
 <Modal bind:visible>
