@@ -6,6 +6,7 @@
   import type { Task } from "./model";
   import { modals } from "./modals";
   import TaskFileIo from "./components/file/TaskFileIo.svelte";
+  import DeleteTaskModal from "./components/modal/DeleteTaskModal.svelte";
 
   const ITEMS_STORAGE_KEY = "todoItems";
 
@@ -22,8 +23,18 @@
     saveToLocalStorage();
   }
 
+  function startTaskDelete(e: { detail: Task }) {
+    modals.deleteTask.data = e.detail;
+    modals.deleteTask.visible = true;
+  }
+
   function saveToLocalStorage() {
     window.localStorage.setItem(ITEMS_STORAGE_KEY, JSON.stringify(items));
+  }
+
+  function onTaskDelete() {
+    items = items.filter((i) => i.id != modals.deleteTask.data.id);
+    saveToLocalStorage();
   }
 
   onMount(() => {
@@ -41,14 +52,21 @@
 
 <div class="bg-gray-100 p-4">
   <EditTaskModal
-    visible={modals.editTask.visible}
-    data={modals.editTask.data}
+    bind:visible={modals.editTask.visible}
+    bind:data={modals.editTask.data}
     on:save={onTaskEditSave}
   />
+
+  <DeleteTaskModal
+    bind:visible={modals.deleteTask.visible}
+    bind:data={modals.deleteTask.data}
+    on:delete={onTaskDelete}
+  />
+
   <TodoItems
     bind:items
     on:edit={onTaskEdit}
-    on:delete={saveToLocalStorage}
+    on:delete={startTaskDelete}
     on:titleChange={saveToLocalStorage}
     on:completedChange={saveToLocalStorage}
   />

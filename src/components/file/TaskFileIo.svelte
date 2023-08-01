@@ -1,6 +1,6 @@
 <script lang="ts">
   import type { Task } from "../../model";
-  import Button from "../util/modal/Button.svelte";
+  import Button from "../util/button/Button.svelte";
 
   export let items: Task[] = [];
   let fileName: string = "";

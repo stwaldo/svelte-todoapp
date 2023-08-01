@@ -2,6 +2,7 @@
   import { createEventDispatcher } from "svelte";
   import type { Task } from "../../model";
   import TodoItemActions from "./TodoItemActions.svelte";
+  import Tags from "./tag/Tags.svelte";
 
   const dispatch = createEventDispatcher();
 
@@ -12,27 +13,21 @@
   }
 </script>
 
-<div class="rounded bg-white drop-shadow-md">
-  <span
-    class:line-through={data.completed}
-    contenteditable="true"
-    spellcheck="false"
-    on:blur={onTitleBlur}
-    bind:textContent={data.title}>{data.title}</span
-  >
-  <TodoItemActions
-    on:delete
-    on:edit
-    on:completedChange
-    bind:completed={data.completed}
-  />
+<div class="rounded bg-white drop-shadow-md border-1 border-black p-4">
+  <div class="flex justify-between">
+    <span
+      class:line-through={data.completed}
+      contenteditable="true"
+      spellcheck="false"
+      on:blur={onTitleBlur}
+      bind:textContent={data.title}>{data.title}</span
+    >
+    <TodoItemActions
+      on:delete
+      on:edit
+      on:completedChange
+      bind:completed={data.completed}
+    />
+  </div>
+  <Tags />
 </div>
-
-<style>
-  div {
-    border: 1px solid black;
-    padding: 10px;
-    display: flex;
-    justify-content: space-between;
-  }
-</style>

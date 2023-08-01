@@ -8,8 +8,7 @@
   export let items: Task[];
 
   function onDelete(task: Task) {
-    items = items.filter((t: Task) => t.id != task.id);
-    dispatch("delete");
+    dispatch("delete", task);
   }
 
   $: items = items.sort((b, a) => Number(b.completed) - Number(a.completed));

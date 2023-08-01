@@ -2,7 +2,7 @@
   import { createEventDispatcher } from "svelte";
   import type { Task } from "../../model";
   import Modal from "../util/modal/Modal.svelte";
-  import Button from "../util/modal/Button.svelte";
+  import Button from "../util/button/Button.svelte";
   const dispatch = createEventDispatcher();
 
   export let visible = false;
@@ -18,15 +18,22 @@
   }
 </script>
 
-<Modal bind:visible>
+<Modal customClass="w-1/2" bind:visible>
   <h2 class="text-3xl font-bold">Edit task</h2>
-  <input
-    class="rounded border-2 border-gray-200 p-2 w-full mt-4"
-    type="text"
-    bind:value={data.title}
+  <input class="w-full mt-4" type="text" bind:value={data.title} />
+  <textarea
+    class="mt-4 w-full"
+    placeholder="Write a decription here..."
+    bind:value={data.description}
   />
   <div class="flex justify-end gap-2 mt-4">
     <Button color="blue" on:click={save}>Save</Button>
     <Button color="red" on:click={close}>Close</Button>
   </div>
 </Modal>
+
+<style>
+  textarea {
+    min-height: 5rem;
+  }
+</style>
