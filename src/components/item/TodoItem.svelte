@@ -14,6 +14,7 @@
 
 <div class="rounded bg-white drop-shadow-md">
   <span
+    class:line-through={data.completed}
     contenteditable="true"
     spellcheck="false"
     on:blur={onTitleBlur}

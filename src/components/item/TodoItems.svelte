@@ -11,24 +11,32 @@
     items = items.filter((t: Task) => t.id != task.id);
     dispatch("delete");
   }
+
+  $: items = items.sort((b, a) => Number(b.completed) - Number(a.completed));
+
+  function getLists(items: Task[]) {
+    return [
+      items.filter((i) => !i.completed),
+      items.filter((i) => i.completed),
+    ];
+  }
+
+  let lists: Task[][];
+  $: lists = getLists(items);
 </script>
 
-<div>
-  {#each items as item (item.id)}
-    <TodoItem
-      bind:data={item}
-      on:titleChange
-      on:completedChange
-      on:edit={() => dispatch("edit", item)}
-      on:delete={() => onDelete(item)}
-    />
+<div class="flex gap-8 flex-col">
+  {#each lists as list}
+    <div class="flex gap-2 flex-col">
+      {#each list as item (item.id)}
+        <TodoItem
+          bind:data={item}
+          on:titleChange
+          on:completedChange
+          on:edit={() => dispatch("edit", item)}
+          on:delete={() => onDelete(item)}
+        />
+      {/each}
+    </div>
   {/each}
 </div>
-
-<style>
-  div {
-    display: flex;
-    gap: 15px;
-    flex-direction: column;
-  }
-</style>
