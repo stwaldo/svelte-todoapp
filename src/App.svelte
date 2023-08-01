@@ -52,6 +52,10 @@
     on:titleChange={saveToLocalStorage}
     on:completedChange={saveToLocalStorage}
   />
-  <TodoItemCreate bind:items on:create={saveToLocalStorage} />
-  <TaskFileIo bind:items />
+  <div class="mt-4">
+    <TodoItemCreate bind:items on:create={saveToLocalStorage} />
+  </div>
+  <div class="mt-4">
+    <TaskFileIo bind:items />
+  </div>
 </div>

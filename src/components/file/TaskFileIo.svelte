@@ -1,10 +1,12 @@
 <script lang="ts">
   import type { Task } from "../../model";
+  import Button from "../util/modal/Button.svelte";
 
   export let items: Task[] = [];
   let fileName: string = "";
 
   let importFiles: FileList;
+  let visible = false;
 
   function save() {
     const string = JSON.stringify(items);
@@ -30,20 +32,29 @@
     reader.readAsText(files[0]);
   }
 
+  function toggleVisibility() {
+    visible = !visible;
+  }
+
   $: onFilesChanged(importFiles);
 </script>
 
-<div>
-  <input type="text" placeholder="File name" bind:value={fileName} /><button
-    on:click={save}>Save file</button
-  >
-  <input type="file" bind:files={importFiles} />
-</div>
+<Button on:click={toggleVisibility}>Import & export</Button>
+
+{#if visible}
+  <div class="bg-white p-4">
+    <input type="text" placeholder="File name" bind:value={fileName} />
+    <Button on:click={save}>Save file</Button>
+    <div>
+      <label class="file-input">
+        <input type="file" bind:files={importFiles} />
+        Upload a file
+      </label>
+    </div>
+  </div>
+{/if}
 
 <style>
-  input[type="file"] {
-    display: block;
-  }
   div {
     margin-top: 20px;
   }

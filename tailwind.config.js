@@ -2,7 +2,11 @@
 export default {
   content: ["./src/**/*.{js,ts,svelte}"],
   theme: {
-    extend: {},
+    extend: {
+      borderWidth: {
+        1: "1px",
+      },
+    },
   },
   plugins: [],
 };
