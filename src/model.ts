@@ -3,6 +3,7 @@ export interface Task {
   title: string;
   completed: boolean;
   description: string;
+  tags: TagData[];
 }
 
 export interface TagData {

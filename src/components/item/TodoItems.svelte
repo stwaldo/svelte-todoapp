@@ -11,8 +11,6 @@
     dispatch("delete", task);
   }
 
-  $: items = items.sort((b, a) => Number(b.completed) - Number(a.completed));
-
   function getLists(items: Task[]) {
     return [
       items.filter((i) => !i.completed),
@@ -20,7 +18,7 @@
     ];
   }
 
-  let lists: Task[][];
+  $: items = items.sort((b, a) => Number(b.completed) - Number(a.completed));
   $: lists = getLists(items);
 </script>
 
