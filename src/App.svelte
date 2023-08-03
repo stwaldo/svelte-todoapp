@@ -7,6 +7,7 @@
   import { modals } from "./modals";
   import TaskFileIo from "./components/file/TaskFileIo.svelte";
   import DeleteTaskModal from "./components/modal/DeleteTaskModal.svelte";
+  import TodoBoard from "./components/item/board/TodoBoard.svelte";
 
   const ITEMS_STORAGE_KEY = "todoItems";
 
@@ -63,13 +64,16 @@
     on:delete={onTaskDelete}
   />
 
-  <TodoItems
+  <!-- <TodoItems
     bind:items
     on:edit={onTaskEdit}
     on:delete={startTaskDelete}
     on:titleChange={saveToLocalStorage}
     on:completedChange={saveToLocalStorage}
-  />
+  /> -->
+
+  <TodoBoard />
+
   <div class="mt-4">
     <TodoItemCreate bind:items on:create={saveToLocalStorage} />
   </div>

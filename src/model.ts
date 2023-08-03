@@ -1,7 +1,7 @@
 export interface Task {
   id: string;
   title: string;
-  completed: boolean;
+  status: "IN_PROGRESS" | "PLANNED" | "COMPLETED";
   description: string;
   tags: TagData[];
 }
