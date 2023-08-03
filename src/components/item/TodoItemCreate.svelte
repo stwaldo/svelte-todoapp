@@ -1,50 +1,44 @@
 <script lang="ts">
-  import { createEventDispatcher } from "svelte";
-  import type { Task } from "../../model";
-  import { v4 as uuidv4 } from "uuid";
+    import { createEventDispatcher } from "svelte";
+    import type { Task } from "../../model";
+    import { v4 as uuidv4 } from "uuid";
 
-  const dispatch = createEventDispatcher();
+    const dispatch = createEventDispatcher();
 
-  export let items: Task[];
+    export let items: Task[];
 
-  let title: string = "";
+    let title: string = "";
 
-  function onKeyDown(e: KeyboardEvent) {
-    if (e.key != "Enter") return;
-    if (title === "") return;
+    function onKeyDown(e: KeyboardEvent) {
+        if (e.key != "Enter") return;
+        if (title === "") return;
 
-    items = [
-      ...items,
-      {
-        id: uuidv4(),
-        title,
-        completed: false,
-        description: "",
-        tags: [
-          {
-            id: uuidv4(),
-            name: "Health",
-            color: "FF0000",
-          },
-        ],
-      },
-    ];
-    dispatch("create");
-    title = "";
-  }
+        items = [
+            ...items,
+            {
+                id: uuidv4(),
+                title,
+                completed: false,
+                description: "",
+                tags: [],
+            },
+        ];
+        dispatch("create");
+        title = "";
+    }
 </script>
 
 <input
-  type="text"
-  bind:value={title}
-  on:keydown={onKeyDown}
-  placeholder="Create a new task"
+    type="text"
+    bind:value={title}
+    on:keydown={onKeyDown}
+    placeholder="Create a new task"
 />
 
 <style>
-  input {
-    padding: 10px;
-    width: 100%;
-    box-sizing: border-box;
-  }
+    input {
+        padding: 10px;
+        width: 100%;
+        box-sizing: border-box;
+    }
 </style>
