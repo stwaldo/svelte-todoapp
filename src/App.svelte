@@ -63,7 +63,6 @@
     bind:data={modals.deleteTask.data}
     on:delete={onTaskDelete}
   />
-  <TodoBoard />
   <!-- <TodoItems
     bind:items
     on:edit={onTaskEdit}
@@ -71,6 +70,9 @@
     on:titleChange={saveToLocalStorage}
     on:completedChange={saveToLocalStorage}
   /> -->
+
+  <TodoBoard />
+
   <div class="mt-4">
     <TodoItemCreate bind:items on:create={saveToLocalStorage} />
   </div>
