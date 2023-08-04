@@ -20,13 +20,7 @@
         title,
         completed: false,
         description: "",
-        tags: [
-          {
-            id: uuidv4(),
-            name: "Health",
-            color: "FF0000",
-          },
-        ],
+        tags: [],
       },
     ];
     dispatch("create");

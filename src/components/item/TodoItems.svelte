@@ -1,5 +1,6 @@
 <script lang="ts">
   import { createEventDispatcher } from "svelte";
+  import { dndzone } from "svelte-dnd-action";
   import type { Task } from "../../model";
   import TodoItem from "./TodoItem.svelte";
 
@@ -11,31 +12,42 @@
     dispatch("delete", task);
   }
 
-  function getLists(items: Task[]) {
-    return [
-      items.filter((i) => !i.completed),
-      items.filter((i) => i.completed),
-    ];
+  function handleDndConsider(e) {
+    items = e.detail.items;
+  }
+
+  function handleDndFinalize(e) {
+    items = e.detail.items;
   }
 
   $: items = items.sort((b, a) => Number(b.completed) - Number(a.completed));
-  $: lists = getLists(items);
 </script>
 
-<div class="flex gap-8 flex-col">
-  {#each lists as list}
-    {#if list.length > 0}
-      <div class="flex gap-2 flex-col">
-        {#each list as item (item.id)}
-          <TodoItem
-            bind:data={item}
-            on:titleChange
-            on:completedChange
-            on:edit={() => dispatch("edit", item)}
-            on:delete={() => onDelete(item)}
-          />
-        {/each}
-      </div>
-    {/if}
+<div class="flex">
+  <div class="flex-1 text-center">Planned</div>
+  <div class="flex-1 text-center">In Progress</div>
+  <div class="flex-1 text-center">Completed</div>
+</div>
+
+<div class="flex">
+  <div class="flex-1">a</div>
+  <div class="flex-1">b</div>
+  <div class="flex-1">c</div>
+</div>
+
+<div
+  class="flex gap-2 flex-col"
+  use:dndzone={{ items }}
+  on:consider={handleDndConsider}
+  on:finalize={handleDndFinalize}
+>
+  {#each items as item (item.id)}
+    <TodoItem
+      bind:data={item}
+      on:titleChange
+      on:completedChange
+      on:edit={() => dispatch("edit", item)}
+      on:delete={() => onDelete(item)}
+    />
   {/each}
 </div>
