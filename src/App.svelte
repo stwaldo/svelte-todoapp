@@ -63,7 +63,6 @@
     bind:data={modals.deleteTask.data}
     on:delete={onTaskDelete}
   />
-
   <!-- <TodoItems
     bind:items
     on:edit={onTaskEdit}

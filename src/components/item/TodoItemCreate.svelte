@@ -13,19 +13,20 @@
         if (e.key != "Enter") return;
         if (title === "") return;
 
-        items = [
-            ...items,
-            {
-                id: uuidv4(),
-                title,
-                completed: false,
-                description: "",
-                tags: [],
-            },
-        ];
-        dispatch("create");
-        title = "";
-    }
+    items = [
+      ...items,
+      {
+        id: uuidv4(),
+        title,
+        completed: false,
+        description: "",
+        tags: [],
+      },
+    ];
+    dispatch("create");
+    title = "";
+  }
+
 </script>
 
 <input
