@@ -2,6 +2,10 @@
 @tailwind components;
 @tailwind utilities;
 
+body {
+  min-height: 100vh;
+}
+
 input[type="text"],
 textarea {
   @apply border-1 border-gray-300 p-2 rounded;

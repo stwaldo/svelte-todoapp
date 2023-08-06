@@ -14,11 +14,12 @@
 </script>
 
 <div class="rounded bg-white drop-shadow-md border-1 border-black p-4">
-  <div class="flex justify-between">
+  <div class="flex flex-wrap justify-between">
     <span
-      class:line-through={data.completed}
+      class:line-through={data.status === "COMPLETED"}
       contenteditable="true"
       spellcheck="false"
+      class="break-all"
       on:blur={onTitleBlur}
       bind:textContent={data.title}
     />
@@ -26,7 +27,7 @@
       on:delete
       on:edit
       on:completedChange
-      bind:completed={data.completed}
+      status={data.status}
     />
   </div>
   <Tags bind:tags={data.tags} />

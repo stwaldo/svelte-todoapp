@@ -1,10 +1,13 @@
 <script lang="ts">
   import { createEventDispatcher } from "svelte";
   import Icon from "@iconify/svelte";
+  import type { StatusType } from "../../model";
 
   const dispatch = createEventDispatcher();
 
-  export let completed: boolean = false;
+  export let status: StatusType;
+
+  let completed: boolean = false;
 
   function onDelete() {
     dispatch("delete");
@@ -15,14 +18,15 @@
   }
 
   function onCompletedChange(_) {
-    dispatch("completedChange");
+    dispatch("completedChange", completed);
   }
 
   $: onCompletedChange(completed);
+  $: completed = status == "COMPLETED";
 </script>
 
 <div>
-  <input type="checkbox" bind:checked={completed} />
+  <input class="md:hidden" type="checkbox" bind:checked={completed} />
   <button on:click={onEdit}>
     <Icon icon="material-symbols:edit" height={24} />
   </button>
@@ -36,6 +40,7 @@
     width: 1.1rem;
     height: 1.1rem;
   }
+
   div {
     display: flex;
     align-items: center;
