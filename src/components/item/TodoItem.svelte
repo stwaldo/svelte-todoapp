@@ -20,8 +20,8 @@
       contenteditable="true"
       spellcheck="false"
       on:blur={onTitleBlur}
-      bind:textContent={data.title}>{data.title}</span
-    >
+      bind:textContent={data.title}
+    />
     <TodoItemActions
       on:delete
       on:edit
