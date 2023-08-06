@@ -1,8 +1,6 @@
 <script lang="ts">
   import { dndzone } from "svelte-dnd-action";
   import { createEventDispatcher } from "svelte";
-  import { v4 as uuidv4 } from "uuid";
-  import TodoColumn from "./TodoColumn.svelte";
   import type { StatusType, Task, TaskColumn } from "../../../model";
   import TodoItem from "../TodoItem.svelte";
 
@@ -33,6 +31,26 @@
     dispatch("delete", task);
   }
 
+  function onTaskCompletedChange(task: Task, completed: boolean) {
+    if (completed) {
+      moveTaskByStatus(task, "COMPLETED");
+    } else {
+      moveTaskByStatus(task, "IN_PROGRESS");
+    }
+
+    dispatch("update");
+  }
+
+  function moveTaskByStatus(task: Task, status: StatusType) {
+    let columnFrom = columns.find((c) => c.status == task.status);
+    let columnTo = columns.find((c) => c.status == status);
+
+    columnFrom.items = columnFrom.items.filter((i) => i.id != task.id);
+    columnTo.items.push(task);
+    task.status = status;
+    columns = columns;
+  }
+
   function handleDndConsider(e, i, status) {
     columns[i].items = e.detail.items;
   }
@@ -44,35 +62,30 @@
       task.status = status;
     }
 
-    dispatch("reordered");
+    dispatch("update");
   }
 </script>
 
-<div class="flex">
-  {#each Object.keys(STATUSES) as status}
-    <div class="flex-1 text-2xl font-bold text-center">
-      {STATUSES[status]}
-    </div>{/each}
-</div>
-
-<div class="flex gap-2 mt-2">
+<div class="flex flex-col md:flex-row gap-2 mt-2">
   {#each columns as column, i (column.status)}
-    <div
-      use:dndzone={{ items: column.items }}
-      on:consider={(e) => handleDndConsider(e, i, column.status)}
-      on:finalize={(e) => handleDndFinalize(e, i, column.status)}
-      class="flex flex-col flex-1 gap-2"
-    >
-      {#each column.items as item (item.id)}
-        <TodoItem
-          bind:data={item}
-          on:titleChange
-          on:on:completedChange
-          on:completedChant
-          on:edit={() => dispatch("edit", item)}
-          on:delete={() => onDelete(item)}
-        />
-      {/each}
+    <div class="flex flex-col flex-1">
+      <h2 class="text-2xl font-bold text-center">{STATUSES[column.status]}</h2>
+      <div
+        use:dndzone={{ items: column.items }}
+        on:consider={(e) => handleDndConsider(e, i, column.status)}
+        on:finalize={(e) => handleDndFinalize(e, i, column.status)}
+        class="mt-2 flex flex-col flex-1 gap-2 py-4"
+      >
+        {#each column.items as item (item.id)}
+          <TodoItem
+            bind:data={item}
+            on:titleChange
+            on:completedChange={(e) => onTaskCompletedChange(item, e.detail)}
+            on:edit={() => dispatch("edit", item)}
+            on:delete={() => onDelete(item)}
+          />
+        {/each}
+      </div>
     </div>
   {/each}
 </div>

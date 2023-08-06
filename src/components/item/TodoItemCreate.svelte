@@ -5,7 +5,6 @@
 
   const dispatch = createEventDispatcher();
 
-  export let items: Task[];
   export let columns: TaskColumn[];
 
   let title: string = "";
@@ -13,17 +12,6 @@
   function onKeyDown(e: KeyboardEvent) {
     if (e.key != "Enter") return;
     if (title === "") return;
-
-    items = [
-      ...items,
-      {
-        id: uuidv4(),
-        title,
-        status: "COMPLETED",
-        description: "",
-        tags: [],
-      },
-    ];
 
     columns[0].items = [
       ...columns[0].items,

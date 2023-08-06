@@ -1,15 +1,15 @@
 <script lang="ts">
-  import type { Task } from "../../model";
+  import type { Task, TaskColumn } from "../../model";
   import Button from "../util/button/Button.svelte";
 
-  export let items: Task[] = [];
+  export let columns: TaskColumn[] = [];
   let fileName: string = "";
 
   let importFiles: FileList;
   let visible = false;
 
   function save() {
-    const string = JSON.stringify(items);
+    const string = JSON.stringify(columns);
     const a = document.createElement("a");
     a.href = `data:application/json;charset=utf-8,${string}`;
     a.download = fileName;
@@ -23,8 +23,8 @@
     reader.onload = (e) => {
       try {
         if (typeof e.target.result !== "string") return;
-        const data: Task[] = JSON.parse(e.target.result);
-        items = data;
+        const data: TaskColumn[] = JSON.parse(e.target.result);
+        columns = data;
       } catch (e) {
         console.error(e);
       }

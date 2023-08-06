@@ -16,7 +16,7 @@
     COMPLETED: 2,
   };
 
-  let items: Task[] = [];
+  // let items: Task[] = [];
 
   function onTaskEdit(e: { detail: Task }) {
     modals.editTask.data = structuredClone(e.detail);
@@ -100,17 +100,17 @@
     <TodoBoard
       bind:columns
       on:edit={onTaskEdit}
+      on:update={saveToLocalStorage}
       on:delete={startTaskDelete}
       on:titleChange={saveToLocalStorage}
       on:completedChange={saveToLocalStorage}
-      on:reordered={saveToLocalStorage}
     />
 
     <div class="mt-4">
-      <TodoItemCreate bind:items bind:columns on:create={saveToLocalStorage} />
+      <TodoItemCreate bind:columns on:create={saveToLocalStorage} />
     </div>
     <div class="mt-4">
-      <TaskFileIo bind:items />
+      <TaskFileIo bind:columns />
     </div>
   </div>
 </body>
